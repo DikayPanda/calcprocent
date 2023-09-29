@@ -9,40 +9,21 @@
         <div class="input-container">
             <input type="number" placeholder="Сумма" id="main-input">
         </div>
-        <button id="add-input">+</button>
+       
         <div class="result-container">
             <label for="percentage-input1">Введите проценты:</label>
             <input type="text" id="percentage-input1">
             <p>Результат:</p>
             <span id="result1">0</span>
-        </div>
-
-        <div class="result-container">
-            <label for="percentage-input2">Введите проценты:</label>
-            <input type="text" id="percentage-input2">
-            <p>Результат:</p>
-            <span id="result2">0</span>
-        </div>
-
-        <div class="result-container">
-            <label for="percentage-input3">Введите проценты:</label>
-            <input type="text" id="percentage-input3">
-            <p>Результат:</p>
-            <span id="result3">0</span>
-        </div>
-
-        <div class="result-container">
-            <label for="percentage-input4">Введите проценты:</label>
-            <input type="text" id="percentage-input4">
-            <p>Результат:</p>
-            <span id="result4">0</span>
+            
         </div>
 
         <div class="total-block">
             <p>Остаток:</p>
-            <span id="total-result">0</span>
+            <span id="total-result"></span>
+            
         </div>
-        
+         <p>Добавить поле</p><button id="add-input">+</button>
     </div>
     
     <script>
@@ -78,18 +59,6 @@
         const percentageInput1 = document.getElementById('percentage-input1');
         const resultSpan1 = document.getElementById('result1');
         percentageInput1.addEventListener('input', calculateResult(percentageInput1, resultSpan1));
-
-        const percentageInput2 = document.getElementById('percentage-input2');
-        const resultSpan2 = document.getElementById('result2');
-        percentageInput2.addEventListener('input', calculateResult(percentageInput2, resultSpan2));
-
-        const percentageInput3 = document.getElementById('percentage-input3');
-        const resultSpan3 = document.getElementById('result3');
-        percentageInput3.addEventListener('input', calculateResult(percentageInput3, resultSpan3));
-
-        const percentageInput4 = document.getElementById('percentage-input4');
-        const resultSpan4 = document.getElementById('result4');
-        percentageInput4.addEventListener('input', calculateResult(percentageInput4, resultSpan4));
         
         //добавление нового поля
         const addInputButton = document.getElementById('add-input');
