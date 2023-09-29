@@ -2,94 +2,52 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-        /* Стилизация основного блока для ввода */
-        .main-block {
-            text-align: center;
-            margin: 0 auto;
-            padding: 20px;
-            max-width: 400px; /* Максимальная ширина блока */
-        }
-        
-        /* Стилизация поля ввода */
-        .input-field {
-            width: 100%;
-            padding: 10px;
-            font-size: 24px; /* Размер шрифта для цифр */
-            text-align: center;
-        }
-
-        /* Стилизация блоков для ввода процентов и вывода результата */
-        .percentage-block, .result-block {
-            display: inline-block;
-            width: 45%; /* Ширина блоков (45% каждый) */
-            margin-right: 5%; /* Расстояние между блоками */
-            text-align: center;
-        }
-
-        /* Стилизация блока для вывода остатка */
-        .total-block {
-            text-align: center;
-            margin: 20px auto;
-            padding: 10px;
-            max-width: 400px; /* Максимальная ширина блока */
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-    <div class="main-block">
-        <input type="text" class="input-field" placeholder="Введите цифры">
-    </div>
+    <div class="container">
+        <div class="input-container">
+            <input type="number" placeholder="Сумма" id="main-input">
+        </div>
 
-    <div class="percentage-block">
-        <label for="percentage-input1">Введите проценты:</label>
-        <input type="text" id="percentage-input1">
-    </div>
+        <div class="result-container">
+            <label for="percentage-input1">Введите проценты:</label>
+            <input type="text" id="percentage-input1">
+            <p>Результат:</p>
+            <span id="result1">0</span>
+        </div>
 
-    <div class="result-block">
-        <p>Результат:</p>
-        <span id="result1">0</span>
-    </div>
+        <div class="result-container">
+            <label for="percentage-input2">Введите проценты:</label>
+            <input type="text" id="percentage-input2">
+            <p>Результат:</p>
+            <span id="result2">0</span>
+        </div>
 
-    <div class="percentage-block">
-        <label for="percentage-input2">Введите проценты:</label>
-        <input type="text" id="percentage-input2">
-    </div>
+        <div class="result-container">
+            <label for="percentage-input3">Введите проценты:</label>
+            <input type="text" id="percentage-input3">
+            <p>Результат:</p>
+            <span id="result3">0</span>
+        </div>
 
-    <div class="result-block">
-        <p>Результат:</p>
-        <span id="result2">0</span>
-    </div>
+        <div class="result-container">
+            <label for="percentage-input4">Введите проценты:</label>
+            <input type="text" id="percentage-input4">
+            <p>Результат:</p>
+            <span id="result4">0</span>
+        </div>
 
-    <div class="percentage-block">
-        <label for="percentage-input3">Введите проценты:</label>
-        <input type="text" id="percentage-input3">
+        <div class="total-block">
+            <p>Остаток:</p>
+            <span id="total-result">0</span>
+        </div>
+        <button id="add-input">+</button>
     </div>
-
-    <div class="result-block">
-        <p>Результат:</p>
-        <span id="result3">0</span>
-    </div>
-
-    <div class="percentage-block">
-        <label for="percentage-input4">Введите проценты:</label>
-        <input type="text" id="percentage-input4">
-    </div>
-
-    <div class="result-block">
-        <p>Результат:</p>
-        <span id="result4">0</span>
-    </div>
-
-    <div class="total-block">
-        <p>Остаток:</p>
-        <span id="total-result">0</span>
-    </div>
-
     
     <script>
         // JavaScript для умножения на введенные проценты
-        const inputField = document.querySelector('.input-field');
+        const inputField = document.getElementById('main-input');
 
         function calculateResult(percentageInput, resultSpan) {
             return function () {
@@ -107,7 +65,7 @@
         }
 
         function calculateTotalResult() {
-            const results = document.querySelectorAll('.result-block span');
+            const results = document.querySelectorAll('.result-container span');
             let total = parseFloat(inputField.value);
             
             results.forEach((result) => {
@@ -132,6 +90,37 @@
         const percentageInput4 = document.getElementById('percentage-input4');
         const resultSpan4 = document.getElementById('result4');
         percentageInput4.addEventListener('input', calculateResult(percentageInput4, resultSpan4));
+        
+        //добавление нового поля
+        const addInputButton = document.getElementById('add-input');
+        const container = document.querySelector('.container');
+
+        addInputButton.addEventListener('click', () => {
+            const newResultContainer = document.createElement('div');
+            newResultContainer.classList.add('result-container');
+
+            const label = document.createElement('label');
+            label.textContent = 'Введите проценты:';
+            const input = document.createElement('input');
+            input.type = 'text';
+
+            const resultParagraph = document.createElement('p');
+            resultParagraph.textContent = 'Результат:';
+            const resultSpan = document.createElement('span');
+            resultSpan.textContent = '0';
+
+            newResultContainer.appendChild(label);
+            newResultContainer.appendChild(input);
+            newResultContainer.appendChild(resultParagraph);
+            newResultContainer.appendChild(resultSpan);
+
+            container.insertBefore(newResultContainer, addInputButton); // Вставляем новые поля перед кнопкой "плюс"
+            
+            // Добавляем обработчик для нового поля ввода
+            input.addEventListener('input', calculateResult(input, resultSpan));
+        });
+
+
     </script>
 </body>
 </html>
