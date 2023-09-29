@@ -1,3 +1,2 @@
 # calcprocent.github.io
-Automatical procents
-сделано с помощью chatgpt
+Автоматический высчет процентов для откладывания средств. Практика и немного помощи от chatgpt
