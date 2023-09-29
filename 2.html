@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .input-container input {
+            width: 50%;
+            padding: 10px;
+            font-size: 24px;
+            text-align: center;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+        }
+
+        .result-container {
+            width: 50%;
+            text-align: center;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .result-container label {
+            font-weight: bold;
+        }
+
+        .result-container span {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .instruction {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .tooltip {
+            position: relative;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 200px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px;
+            position: absolute;
+            bottom: -50ev; /* Расположение снизу */
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="instruction">
+        <h1>Автоматический подсчет процентов для схемы 30\30\25\15<span class="tooltip">*<span class="tooltiptext">Схема откладывания средств позволяющая легко закрывать ипотеку, откладывать на финансовую подушку
+            и тд.</h1>
+    </div>
+    
+    <div class="container">
+        <div class="input-container">
+            <input type="number" placeholder="Сумма" id="main-input">
+        </div>
+
+        <div class="result-container">
+            <label>30% на ипотеку:</label>
+            <p>Результат:</p>
+            <span id="result1">0</span>
+        </div>
+
+        <div class="result-container">
+            <label>30% на фин.подушку:</label>
+            <p>Результат:</p>
+            <span id="result2">0</span>
+        </div>
+
+        <div class="result-container">
+            <label>25% на ежемесячные расходы:</label>
+            <p>Результат:</p>
+            <span id="result3">0</span>
+        </div>
+
+        <div class="result-container">
+            <label>15% кафе\рестораны\и тп:</label>
+            <p>Результат:</p>
+            <span id="result4">0</span>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript для умножения на введенные проценты
+        const mainInput = document.getElementById('main-input');
+        const results = [
+            document.getElementById('result1'),
+            document.getElementById('result2'),
+            document.getElementById('result3'),
+            document.getElementById('result4')
+        ];
+        const percentages = [30, 30, 25, 15];
+
+        function calculateResults() {
+            const inputValue = parseFloat(mainInput.value);
+            
+            if (!isNaN(inputValue)) {
+                results.forEach((result, index) => {
+                    const resultValue = (inputValue * percentages[index]) / 100;
+                    result.textContent = resultValue.toFixed(2); // Округление до двух знаков после запятой
+                });
+            } else {
+                results.forEach((result) => {
+                    result.textContent = '0';
+                });
+            }
+        }
+
+        mainInput.addEventListener('input', calculateResults);
+
+        // Инициализация результатов при загрузке страницы
+        calculateResults();
+    </script>
+</body>
+</html>

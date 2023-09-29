@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        /* Стилизация основного блока для ввода */
+        .main-block {
+            text-align: center;
+            margin: 0 auto;
+            padding: 20px;
+            max-width: 400px; /* Максимальная ширина блока */
+        }
+        
+        /* Стилизация поля ввода */
+        .input-field {
+            width: 100%;
+            padding: 10px;
+            font-size: 24px; /* Размер шрифта для цифр */
+            text-align: center;
+        }
+
+        /* Стилизация блоков для ввода процентов и вывода результата */
+        .percentage-block, .result-block {
+            display: inline-block;
+            width: 45%; /* Ширина блоков (45% каждый) */
+            margin-right: 5%; /* Расстояние между блоками */
+            text-align: center;
+        }
+
+        /* Стилизация блока для вывода остатка */
+        .total-block {
+            text-align: center;
+            margin: 20px auto;
+            padding: 10px;
+            max-width: 400px; /* Максимальная ширина блока */
+        }
+    </style>
+</head>
+<body>
+    <div class="main-block">
+        <input type="text" class="input-field" placeholder="Введите цифры">
+    </div>
+
+    <div class="percentage-block">
+        <label for="percentage-input1">Введите проценты:</label>
+        <input type="text" id="percentage-input1">
+    </div>
+
+    <div class="result-block">
+        <p>Результат:</p>
+        <span id="result1">0</span>
+    </div>
+
+    <div class="percentage-block">
+        <label for="percentage-input2">Введите проценты:</label>
+        <input type="text" id="percentage-input2">
+    </div>
+
+    <div class="result-block">
+        <p>Результат:</p>
+        <span id="result2">0</span>
+    </div>
+
+    <div class="percentage-block">
+        <label for="percentage-input3">Введите проценты:</label>
+        <input type="text" id="percentage-input3">
+    </div>
+
+    <div class="result-block">
+        <p>Результат:</p>
+        <span id="result3">0</span>
+    </div>
+
+    <div class="percentage-block">
+        <label for="percentage-input4">Введите проценты:</label>
+        <input type="text" id="percentage-input4">
+    </div>
+
+    <div class="result-block">
+        <p>Результат:</p>
+        <span id="result4">0</span>
+    </div>
+
+    <div class="total-block">
+        <p>Остаток:</p>
+        <span id="total-result">0</span>
+    </div>
+
+    <div>
+        <a href ="2.html">Ссылка на фиксированные проценты</a>
+    </div>
+    
+    <script>
+        // JavaScript для умножения на введенные проценты
+        const inputField = document.querySelector('.input-field');
+
+        function calculateResult(percentageInput, resultSpan) {
+            return function () {
+                const inputValue = parseFloat(inputField.value);
+                const percentageValue = parseFloat(percentageInput.value);
+                
+                if (!isNaN(inputValue) && !isNaN(percentageValue)) {
+                    const result = (inputValue * percentageValue) / 100;
+                    resultSpan.textContent = result.toFixed(2); // Округление до двух знаков после запятой
+                    calculateTotalResult();
+                } else {
+                    resultSpan.textContent = '0';
+                }
+            };
+        }
+
+        function calculateTotalResult() {
+            const results = document.querySelectorAll('.result-block span');
+            let total = parseFloat(inputField.value);
+            
+            results.forEach((result) => {
+                total -= parseFloat(result.textContent);
+            });
+            
+            document.getElementById('total-result').textContent = total.toFixed(2);
+        }
+
+        const percentageInput1 = document.getElementById('percentage-input1');
+        const resultSpan1 = document.getElementById('result1');
+        percentageInput1.addEventListener('input', calculateResult(percentageInput1, resultSpan1));
+
+        const percentageInput2 = document.getElementById('percentage-input2');
+        const resultSpan2 = document.getElementById('result2');
+        percentageInput2.addEventListener('input', calculateResult(percentageInput2, resultSpan2));
+
+        const percentageInput3 = document.getElementById('percentage-input3');
+        const resultSpan3 = document.getElementById('result3');
+        percentageInput3.addEventListener('input', calculateResult(percentageInput3, resultSpan3));
+
+        const percentageInput4 = document.getElementById('percentage-input4');
+        const resultSpan4 = document.getElementById('result4');
+        percentageInput4.addEventListener('input', calculateResult(percentageInput4, resultSpan4));
+    </script>
+</body>
+</html>
